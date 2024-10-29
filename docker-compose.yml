@@ -1,28 +1,27 @@
 services:
-
   chesgptbackend:
     build: .
     env_file:
       - .env
-    
+
     volumes:
       - .:/chesgptbackend
-    
+
     depends_on:
       - db
     networks:
       - db-network
-  
+
   db:
     image: mysql
-    container_name: mysql_db_pizza
+    container_name: mysql_db_chesgpt
     environment:
-      MYSQL_DATABASE: mypizzadb
-      MYSQL_USER: mypizzadbuser
-      MYSQL_PASSWORD: mypizzadb1254e3452
-      MYSQL_ROOT_PASSWORD: mypizzadbroot3425234dasd3
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD},
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     ports:
-      - "3306:3306"
+      - '3306:3306'
     volumes:
       - db-data:/var/lib/mysql
     networks:
